@@ -9,12 +9,10 @@ class SingUp extends Component{
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
+            first_name: '',
+            last_name: '',
             email: '',
-            password: '',
-            confirmPass:''
-            
+            password: ''
         }
     }
 
@@ -29,7 +27,7 @@ class SingUp extends Component{
         })
         .then((response) => {
             if(response.status === 201){
-                return response.json()
+                return response.json();
             }else if(response.status === 400){
                 throw 'Failed validation';
             }else{
@@ -56,8 +54,8 @@ class SingUp extends Component{
                             <TextInput
                                 style={styles.formInput}
                                 placeholder="enter first name..."
-                                onChangeText={(firstName) => this.setState({firstName})}
-                                value={this.state.firstName}/>
+                                onChangeText={(first_name) => this.setState({first_name})}
+                                value={this.state.first_name}/>
                         </View>
 
                         <View>
@@ -65,8 +63,8 @@ class SingUp extends Component{
                             <TextInput
                                 style={styles.formInput}
                                 placeholder="enter Last name ..."
-                                onChangeText={(lastName) => this.setState({lastName})}
-                                value={this.state.lastName}
+                                onChangeText={(last_name) => this.setState({last_name})}
+                                value={this.state.last_name}
                             />
                         </View>
 
@@ -90,18 +88,6 @@ class SingUp extends Component{
                                 value={this.state.password}
                                 secureTextEntry={true}
                             />
-                        </View>
-
-                        <View>
-                            <Text> Confirm Password:</Text>
-                            <TextInput
-                                style={styles.formInput}
-                                placeholder="repeat a choosen pasword..."
-                                onChangeText={(confirmPass) => this.setState({confirmPass})}
-                                secureTextEntry={true}
-                            
-                            />
-
                         </View>
 
                         <Button
