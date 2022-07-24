@@ -1,6 +1,5 @@
 import React, { Component} from "react";
 import { View, Text, StyleSheet, TextInput, Button, Image } from 'react-native';
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SingUp from "./Signup";
 import HomeScreen from "./HomeScreen"
@@ -14,8 +13,6 @@ class SignIn extends Component {
         this.state = {
             email :'',
             password : '',
-            data:[],
-            isLoading: true
         };
     }
 
@@ -32,33 +29,31 @@ class SignIn extends Component {
 
     login = async () => {
 
-        //Validation here...
-
         return fetch("http://localhost:3333/api/1.0.0/login", {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        })
-        .then((response) => {
-            if(response.status === 200){
-                return response.json()
-            }else if(response.status === 400){
-                throw 'Invalid email or password';
-            }else{
-                throw 'Something went wrong';
-            }
-        })
-        .then(async (responseJson) => {
-                console.log(responseJson);
-                await AsyncStorage.setItem('@session_token', responseJson.token);
-                this.props.navigation.navigate("Home");
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+            })
+            .then((response) => {
+                if(response.status === 200){
+                    return response.json()
+                }else if(response.status === 400){
+                    throw 'Invalid email or password';
+                }else{
+                    throw 'Something went wrong';
+                }
+         })
+            .then(async (responseJson) => {
+                    console.log(responseJson);
+                    await AsyncStorage.setItem('@session_token', responseJson.token);
+                    this.props.navigation.navigate("Home");
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }
 
     render(){
         const nav = this.props.navigation;
