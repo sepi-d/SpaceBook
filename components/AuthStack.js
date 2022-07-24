@@ -12,7 +12,7 @@ import AppTab from './AppTab';
 
 const Stack = createNativeStackNavigator();
 
-class AppStack extends Component{
+class AuthStack extends Component{
 
     constructor(props){
         super(props);
@@ -23,10 +23,11 @@ class AppStack extends Component{
         <Stack.Navigator  initialRouteName='AuthChecker'>
           <Stack.Screen name= 'AuthChecker' component={AuthChecker}/>
           <Stack.Screen name= 'SignIn' component={SignIn}/>
-          <Stack.Screen name='Home' component={AppTab} />
+          <Stack.Screen name='Home' component={AppTab}/>
+          <Stack.Screen name='Signup' component={SingUp} />
         </Stack.Navigator>
             
         );
     }   
 }
-export default AppStack;
+export default AuthStack;

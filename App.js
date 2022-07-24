@@ -11,7 +11,7 @@ import Friends from './components/Friends';
 import HomeScreen from './components/HomeScreen';
 
 import AppTab from './components/AppTab';
-import AppStack from './components/AppStack';
+import AuthStack from './components/AuthStack';
 
 
 class App extends Component{
@@ -22,8 +22,8 @@ class App extends Component{
   render(){
     return(
       <NavigationContainer>
-        <AppTab/>
-        <AppStack/>
+        <AuthStack/>
+      
       </NavigationContainer>
     );
   }

@@ -11,6 +11,7 @@ import SingUp from './Signup';
 
 const Tab = createBottomTabNavigator();
 
+
 class AppTab extends Component{
 
     constructor(props){
@@ -21,8 +22,8 @@ class AppTab extends Component{
         return(
 
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Signup" component={SingUp} />
+            <Tab.Screen name="Friends" component={Friends} />
+            <Tab.Screen name="Signup" component={SingUp} />
         </Tab.Navigator>
 
         );
