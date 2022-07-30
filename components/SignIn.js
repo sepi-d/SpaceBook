@@ -48,6 +48,8 @@ class SignIn extends Component {
             .then(async (responseJson) => {
                     console.log(responseJson);
                     await AsyncStorage.setItem('@session_token', responseJson.token);
+                    await AsyncStorage.setItem('@user_id', responseJson.id);
+
                     this.props.navigation.navigate("Home");
             })
             .catch((error) => {
@@ -57,7 +59,6 @@ class SignIn extends Component {
 
     render(){
         const nav = this.props.navigation;
-
         return (
     
             <View style={styles.container}>

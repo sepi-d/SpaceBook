@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import AuthChecker from './AuthChecker';
 import SignIn from './SignIn';
-// import Friends from './Friends';
 import HomeScreen from './HomeScreen';
 import SingUp from './Signup';
 import AppTab from './AppTab';

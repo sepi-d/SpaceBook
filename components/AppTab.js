@@ -2,11 +2,10 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AuthChecker from './AuthChecker';
-import SignIn from './SignIn';
+
 import Friends from './Friends';
 import HomeScreen from './HomeScreen';
-import SingUp from './Signup';
+import profile from './profile';
 
 
 const Tab = createBottomTabNavigator();
@@ -22,8 +21,11 @@ class AppTab extends Component{
         return(
 
         <Tab.Navigator>
+            <Tab.Screen name="HomeScreen" component={HomeScreen} />
             <Tab.Screen name="Friends" component={Friends} />
-            <Tab.Screen name="Signup" component={SingUp} />
+            <Tab.Screen name= "Profile" component={profile}/>
+            
+
         </Tab.Navigator>
 
         );
