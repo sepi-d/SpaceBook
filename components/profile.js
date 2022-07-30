@@ -72,7 +72,7 @@ class profile extends Component{
     }
     render(){
         return(
-            <View>
+            <View style={styles.container}>
                 <View>
                     <Button/>
                     <Button/>
@@ -80,6 +80,7 @@ class profile extends Component{
                 </View>
                 <View>
                     <TextInput
+                        style={styles.postInput}
                         placeholder='post...' 
                         onChangeText={this.postInput}
                         value= {this.state.text}
@@ -102,4 +103,24 @@ class profile extends Component{
 
 
 }
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'antiquewhite',
+        // alignItems: 'center',
+        justifyContent: 'center',
+    },
+    postInput:{
+        // height: 100,
+        padding: 10,
+        marginTop: 10,
+        marginBottom:10,
+        borderWidth:1,
+        width: "100%",
+
+
+    },
+
+    }
+)
 export default profile;
