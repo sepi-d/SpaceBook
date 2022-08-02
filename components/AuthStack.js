@@ -8,6 +8,8 @@ import SignIn from './SignIn';
 import HomeScreen from './HomeScreen';
 import SingUp from './Signup';
 import AppTab from './AppTab';
+import FriendRequests from './FriendRequests';
+import Friends from './Friends';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ class AuthStack extends Component{
           <Stack.Screen name= 'SignIn' component={SignIn}/>
           <Stack.Screen name='Home' component={AppTab}/>
           <Stack.Screen name='Signup' component={SingUp} />
+          <Stack.Screen name= 'FriendRequests' component ={FriendRequests}/>
+          <Stack.Screen name = 'Friends' component={Friends}/>
         </Stack.Navigator>
             
         );

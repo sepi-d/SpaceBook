@@ -109,7 +109,7 @@ class profile extends Component{
         })
         .then((responseJson) => {
                console.log("post added ", responseJson);
-               this.props.navigation.navigate("Home");
+               //this.props.navigation.navigate("Home");
         })
         .catch((error) => {
             console.log(error);
@@ -161,7 +161,12 @@ class profile extends Component{
                     <FlatList
                         data={this.state.postList}
                         renderItem={({item}) => 
+                        <View>
                         <Text>{item.text}</Text>
+                        <TouchableOpacity>
+                            <Text> Delete </Text>
+                        </TouchableOpacity>
+                        </View>
                     }
                    // keyExtractor={({id},index => post_id )}                    
 

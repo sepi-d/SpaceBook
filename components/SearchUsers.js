@@ -4,13 +4,15 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class SearchFriends extends Component{
+class SearchUsers extends Component{
     constructor(props){
         super(props);
         this.state={
             searchUser:'',
             isLoading:true,
             searchedUserList:[],
+            userID:'',
+            sendFriendRequest:[],
         }
 
     }
@@ -21,6 +23,8 @@ class SearchFriends extends Component{
         console.log(text)
     }
 
+
+    // search fo users 
     GetUser = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
@@ -61,8 +65,56 @@ class SearchFriends extends Component{
             });
 
     }
+
+    // (post request) to send a friend request based on spesific user id
+
+    SendFriendRequests = async(user_id) => {
+        console.log(userID);
+
+        const userID = await AsyncStorage.getItem('@user_id');
+        const token = await AsyncStorage.getItem('@session_token');
+        console.log(token);
+
+        return fetch("http://localhost:3333/api/1.0.0/user/"+user_id+"/friends", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization':  token
+            },
+            body: JSON.stringify({
+                user_id: this.state.sendFriendRequest
+
+            })
+        })
+        .then((response) => {
+            if(response.status === 200){
+                return response.json()
+            }else if(response.status === 401){
+                throw 'Unauthorised';
+            }else if(response.status === 403){
+                throw '	User is already added as a friend';
+            }else if(response.status === 404)
+            {
+                throw 'Not Found';
+            }else if(response.status === 500){
+                throw 'Server Error';
+            }else{
+                throw ' something went wrong';
+            }
+        })
+        .then((responseJson) => {
+               console.log("post friend friend request sent ", responseJson);
+            //    this.props.navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
     
     
+
+
+
     render(){
         return(
             <View>
@@ -80,7 +132,8 @@ class SearchFriends extends Component{
                     />
                 </View>
                 <TouchableOpacity
-                onPress={() => this.GetUser()}
+                onPress={
+                    () => this.GetUser()}
                 >
                     <Text>
                         Search
@@ -96,6 +149,14 @@ class SearchFriends extends Component{
                         renderItem={({item}) => 
                         <View>
                         <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
+                        <TouchableOpacity
+                        onPress={() => this.SendFriendRequests(item.user_id)}
+                        // value={this.setState.userID}
+                        >
+                            <Text>
+                                Add to Friends
+                            </Text>
+                        </TouchableOpacity>
                         </View>
                                  
 
@@ -116,4 +177,4 @@ class SearchFriends extends Component{
 
 }
 
-export default SearchFriends; 
+export default SearchUsers; 
