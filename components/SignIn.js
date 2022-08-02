@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
         backgroundColor:'antiquewhite',
         alignItems: 'center',
         justifyContent: 'center',
+        marginHorizontal: 80,
+
     },
 
     logo: {

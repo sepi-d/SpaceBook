@@ -66,15 +66,18 @@ class HomeScreen extends Component{
 
     render(){
         return(
-            <View style={styles.container}>
-                <View style={styles.welcomeContainer}>
-                     <Text style={styles.welcomeMessage}>
-                        Hello {this.state.first_name}   
-                    </Text>
+            <ScrollView style={styles.container}>
+                
+            
+                <View >
+                    <View style={styles.welcomeContainer}>
+                        <Text style={styles.welcomeMessage}>
+                            Hello {this.state.first_name}   
+                        </Text>
+                    </View>
+                
                 </View>
-               
-            </View>
-
+            </ScrollView>
     
         );
     }
