@@ -26,8 +26,8 @@ class profile extends Component{
     
 
     componentDidMount(){
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-        });
+        // this._unsubscribe = this.props.navigation.addListener('focus', () => {
+        // });
         this.GetSavedPost();        
     }
 
@@ -75,8 +75,6 @@ class profile extends Component{
     // save writen post in to the database using POST request 
 
     SavePost = async() => {
-        //Validation here...
-
         const userID = await AsyncStorage.getItem('@user_id');
         const token = await AsyncStorage.getItem('@session_token');
 
@@ -95,7 +93,8 @@ class profile extends Component{
         })
         .then((response) => {
             if(response.status === 201){
-                return response.json()
+                this.GetSavedPost();
+                return ;
             }else if(response.status === 401){
                 throw 'Failed Unauthorised';
             }else if(response.status === 404)
@@ -115,6 +114,90 @@ class profile extends Component{
             console.log(error);
         })
     }
+
+    // Delete saved posts 
+
+    DeletePost = async(post_id) => {
+        const userID = await AsyncStorage.getItem('@user_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id, {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization':  token
+            },
+        })
+        .then((response) => {
+            if(response.status === 200){
+                this.GetSavedPost();
+                return ;
+            }else if(response.status === 401){
+                throw 'Unauthorised';
+            }else if(response.status === 403)
+            {
+                throw 'Forbidden - you can only delete your own posts';
+
+            }else if(response.status === 404)
+            {
+                throw 'Not Found';
+            }else if(response.status === 500){
+                throw 'Server Error';
+            }else{
+                throw ' something went wrong';
+            }
+        })
+        .then((responseJson) => {
+               console.log("post deleted ", responseJson);
+               //this.props.navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    // like a post 
+    LikePost = async(post_id) => {
+        const userID = await AsyncStorage.getItem('@user_id');
+        const token = await AsyncStorage.getItem('@session_token');
+
+        return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id+"/like", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization':  token
+            },
+        })
+        .then((response) => {
+            if(response.status === 200){
+
+                return ;
+            }else if(response.status === 401){
+                throw 'Unauthorised';
+            }else if(response.status === 403)
+            {
+                throw 'Forbidden - you already liked this post';
+
+            }else if(response.status === 404)
+            {
+                throw 'Not Found';
+            }else if(response.status === 500){
+                throw 'Server Error';
+            }else{
+                throw ' something went wrong';
+            }
+        })
+        .then((responseJson) => {
+               console.log("post liked ", responseJson);
+               //this.props.navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+
+
     render(){
         return(
             <ScrollView style={styles.container}>
@@ -155,22 +238,30 @@ class profile extends Component{
                     </View>    
                     <View>
                         <Text>
-                            POSTS on the Wall 
+                            POSTS on the Wall : 
                         </Text>
                     </View>
-                    <FlatList
-                        data={this.state.postList}
-                        renderItem={({item}) => 
-                        <View>
-                        <Text>{item.text}</Text>
-                        <TouchableOpacity>
-                            <Text> Delete </Text>
-                        </TouchableOpacity>
-                        </View>
-                    }
-                   // keyExtractor={({id},index => post_id )}                    
 
-                    />
+                    <View>
+
+                        <FlatList
+                            keyExtractor={(item, index) => index}   
+                            data={this.state.postList}
+                            renderItem={({item}) => 
+                            <View>
+                            <Text>{item.text}</Text>
+                            <TouchableOpacity
+                                onPress={()=>this.DeletePost(item.post_id)}
+                            >
+                                <Text> Delete </Text>
+                            </TouchableOpacity>
+                            </View>
+                        }
+                        // keyExtractor={({id},index => post_id )}                    
+
+                        />
+                    </View>
+
                     <View>
 
                     </View>

@@ -101,11 +101,6 @@ class Friends extends Component{
 
         );
     }
-
-
-
-
-
 }
 
 export default Friends; 
