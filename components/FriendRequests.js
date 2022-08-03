@@ -80,7 +80,9 @@ class FriendRequests extends Component{
         })
         .then((response) => {
             if(response.status === 200){
-                return; // nav to friend page 
+                // update requests lists
+                this.GetAllFriendRequests();
+                return;
             }else if(response.status === 401){
                 throw 'Unauthorised';
             }else if(response.status === 404){
@@ -103,22 +105,46 @@ class FriendRequests extends Component{
 
 
      RejectFriendRequest = async(user_id) =>{
-
-
-
-     }
-
-     
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests/"+user_id, {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization':  token
+            },
+        })
+        .then((response) => {
+            if(response.status === 200){
+                // update requests lists
+                this.GetAllFriendRequests();
+                return; // nav to friend page 
+            }else if(response.status === 401){
+                throw 'Unauthorised';
+            }else if(response.status === 404){
+                throw '	NotFound';
+            }else if(response.status === 500){
+                throw 'Server Error';
+            }else{
+                throw ' something went wrong';
+            }
+        })
+        .then((responseJson) => {
+               console.log("delete(friend request rejected) ", responseJson);
+            //    this.props.navigation.navigate("Home");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
 
 
     render(){
         return(
             <View>
-                {/* <View>
-                <Text>Friend Requests Lists</Text>
+                <View>
+                <Text>Friend Requests Lists : </Text>
 
-                </View> */}
+                </View>
 
                 <FlatList
                     keyExtractor={(item, index) => index}   
