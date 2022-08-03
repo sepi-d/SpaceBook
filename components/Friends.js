@@ -15,12 +15,18 @@ class Friends extends Component{
 
     }
 
+    componentDidMount(){
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+        });
+        this.GetFriends();        
+    }
+
     GetFriends = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
         //const searchUser = this.state.searchUser;
 
-        return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"friends", {    
+        return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/friends", {    
             headers: {
                 'X-Authorization':  token
             }
@@ -72,10 +78,11 @@ class Friends extends Component{
             </View>
            
             <FlatList
+            keyExtractor={(item, index) => index}
             data={this.state.friendList}
             renderItem={({item}) =>
             <View>
-                <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
+                <Text> {item.first_name} {item.last_name} ({item.user_email}) </Text>
                 {/* <TouchableOpacity>
                     <Text>
                         Add to Friends

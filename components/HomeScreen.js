@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component} from "react";
-import { View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, Button} from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import SingUp from "./Signup";
 import Friends from "./Friends";
+//import { Button } from 'react-native-web';
 
 const Tab = createBottomTabNavigator();
 
@@ -63,6 +64,46 @@ class HomeScreen extends Component{
         })
     }
 
+    Logout = async() => {
+        const token = await AsyncStorage.getItem('@session_token');
+        const userID = await AsyncStorage.getItem('@user_id');
+
+        return fetch("http://localhost:3333/api/1.0.0/logout", {
+            method: 'post',
+            headers: {
+
+                'X-Authorization':  token
+            }
+        })
+        .then((response) => {
+           // console.log(response.json());
+            if(response.status === 200){
+                // return response.json();
+                  AsyncStorage.clear();
+                this.props.navigation.navigate("SignIn");
+            
+
+            }else if(response.status === 401){
+                throw  'Unauthorised';
+            } else if(response.status === 500){
+                throw 'Server Error';
+            }
+            else{
+                throw 'Something went wrong';
+            }
+        })
+        .then((responseJson) => {
+            // console.log(responseJson);
+            //  AsyncStorage.clear();
+            //  this.props.navigation.navigate("SignIn");
+        })
+
+        .catch((error) => {
+            console.log(error);
+        })
+
+    }
+
 
     render(){
         return(
@@ -75,6 +116,15 @@ class HomeScreen extends Component{
                             Hello {this.state.first_name}   
                         </Text>
                     </View>
+                    <Button
+                     color="red"
+                     onPress={()=> this.Logout()}
+                     title="Log out"
+                     accessibillityLable="Log in to your space book account"
+                    
+                    />
+                       
+
                 
                 </View>
             </ScrollView>

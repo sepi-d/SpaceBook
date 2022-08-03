@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component} from "react";
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, SectionList} from 'react-native';
 
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,17 +26,15 @@ class FriendRequests extends Component{
     }
 
 // (Get request) to get all the friend requests pending 
+
     GetAllFriendRequests = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
-        //const searchUser = this.state.searchUser;
-
         return fetch("http://localhost:3333/api/1.0.0/friendrequests", {    
             headers: {
                 'X-Authorization':  token
             }
             })
-
             .then((response) => {
                 // console.log(response.json());
                  if(response.status === 200){
@@ -60,33 +58,29 @@ class FriendRequests extends Component{
             })
             .catch((error) => {
                 console.log(error);
-
             });
         }
 
      // accept friend requests
     
      AcceptFriendRequest = async(user_id) => {
-        console.log(userID);
+        // console.log(user_id);
 
-        const userID = await AsyncStorage.getItem('@user_id');
+        // const userID = await AsyncStorage.getItem('@user_id');
         const token = await AsyncStorage.getItem('@session_token');
 
         console.log(token);
 
-        return fetch("http://localhost:3333/api/friendrequests/"+user_id, {
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests/"+user_id, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization':  token
             },
-            body: JSON.stringify({
-                user_id: this.state.acceptRequest
-            })
         })
         .then((response) => {
             if(response.status === 200){
-                return response.json()
+                return; // nav to friend page 
             }else if(response.status === 401){
                 throw 'Unauthorised';
             }else if(response.status === 404){
@@ -108,7 +102,11 @@ class FriendRequests extends Component{
 
 
 
-     //RejectFriendRequest()
+     RejectFriendRequest = async(user_id) =>{
+
+
+
+     }
 
      
 
@@ -117,23 +115,25 @@ class FriendRequests extends Component{
     render(){
         return(
             <View>
-                <View>
+                {/* <View>
                 <Text>Friend Requests Lists</Text>
 
-                </View>
+                </View> */}
 
                 <FlatList
+                    keyExtractor={(item, index) => index}   
                     data = { this.state.friendRequestsList}
                     renderItem={({item}) =>
                     <View> 
                     <Text>
-                        {item.user_givenname} {item.user_familyname} 
+                        {item.first_name} {item.last_name} {item.user_id}
+                        {/* {item.first_name +' '+ item.last_name +' ('+ item.email +')'}  */}
                     </Text>
                     <TouchableOpacity
-                    onPress={() => this.AcceptFriendRequest(item.user_id)}
+                        onPress={() => this.AcceptFriendRequest(item.user_id)}
                     >
                         <Text>
-
+                            Accept
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -143,8 +143,11 @@ class FriendRequests extends Component{
                     </TouchableOpacity>
                     </View>
                     }
-                />  
-                {/* flat lists ends */}
+                    //renderItem ends
+                />   
+        
+
+                
             </View>
 
         );
