@@ -61,6 +61,9 @@ class Friends extends Component{
             });
 
     }
+
+
+    
     
     render(){
         const nav = this.props.navigation;
@@ -86,11 +89,14 @@ class Friends extends Component{
             renderItem={({item}) =>
             <View>
                 <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
-                {/* <TouchableOpacity>
+                <TouchableOpacity
+                    // go to friend profile with friend given id
+                    onPress={() => nav.navigate('FriendProfile', {userId: item.user_id})}
+                >
                     <Text>
-                        Add to Friends
+                        View Profile
                     </Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
             }
             />

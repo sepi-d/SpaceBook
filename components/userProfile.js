@@ -7,12 +7,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlatList } from 'react-native-gesture-handler';
 import HomeScreen from "./HomeScreen"
 
-class profile extends Component{
+class UserProfile extends Component{
     constructor(props){
         super(props);
         this.state = {
             // first_name: '',
             // last_name: '',
+            userID: props.route.params.userId,
             isLoading:true,
             postList:[],
             newPost:'',
@@ -35,7 +36,8 @@ class profile extends Component{
     //
     GetSavedPost = async () => {
         const token = await AsyncStorage.getItem('@session_token');
-        const userID = await AsyncStorage.getItem('@user_id');
+        const userID = this.state.userID;
+        console.log(userID)
 
         return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post", {    
             headers: {
@@ -75,7 +77,7 @@ class profile extends Component{
     // save writen post in to the database using POST request 
 
     SavePost = async() => {
-        const userID = await AsyncStorage.getItem('@user_id');
+        const userID = this.state.userID;
         const token = await AsyncStorage.getItem('@session_token');
 
 
@@ -118,48 +120,48 @@ class profile extends Component{
 
     // Delete saved posts 
 
-    DeletePost = async(post_id) => {
-        const userID = await AsyncStorage.getItem('@user_id');
-        const token = await AsyncStorage.getItem('@session_token');
+    // DeletePost = async(post_id) => {
+    //     const userID = await AsyncStorage.getItem('@user_id');
+    //     const token = await AsyncStorage.getItem('@session_token');
 
-        return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id, {
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Authorization':  token
-            },
-        })
-        .then((response) => {
-            if(response.status === 200){
-                this.GetSavedPost();
-                return ;
-            }else if(response.status === 401){
-                throw 'Unauthorised';
-            }else if(response.status === 403)
-            {
-                throw 'Forbidden - you can only delete your own posts';
+    //     return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id, {
+    //         method: 'delete',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-Authorization':  token
+    //         },
+    //     })
+    //     .then((response) => {
+    //         if(response.status === 200){
+    //             this.GetSavedPost();
+    //             return ;
+    //         }else if(response.status === 401){
+    //             throw 'Unauthorised';
+    //         }else if(response.status === 403)
+    //         {
+    //             throw 'Forbidden - you can only delete your own posts';
 
-            }else if(response.status === 404)
-            {
-                throw 'Not Found';
-            }else if(response.status === 500){
-                throw 'Server Error';
-            }else{
-                throw ' something went wrong';
-            }
-        })
-        .then((responseJson) => {
-               console.log("post deleted ", responseJson);
-               //this.props.navigation.navigate("Home");
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+    //         }else if(response.status === 404)
+    //         {
+    //             throw 'Not Found';
+    //         }else if(response.status === 500){
+    //             throw 'Server Error';
+    //         }else{
+    //             throw ' something went wrong';
+    //         }
+    //     })
+    //     .then((responseJson) => {
+    //            console.log("post deleted ", responseJson);
+    //            //this.props.navigation.navigate("Home");
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
     // like a post 
     LikePost = async(post_id) => {
-        const userID = await AsyncStorage.getItem('@user_id');
+        const userID = this.state.userID;
         const token = await AsyncStorage.getItem('@session_token');
 
         return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id+"/like", {
@@ -203,7 +205,7 @@ class profile extends Component{
 
     //delete like 
     DeleteLike = async(post_id) => {
-        const userID = await AsyncStorage.getItem('@user_id');
+        const userID = this.state.userID;
         const token = await AsyncStorage.getItem('@session_token');
 
         return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id+"/like", {
@@ -299,11 +301,11 @@ class profile extends Component{
                             renderItem={({item}) => 
                             <View>
                             <Text>{item.text}</Text>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 onPress={()=>this.DeletePost(item.post_id)}
                             >
                                 <Text> Delete  </Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                             <TouchableOpacity
                                 onPress={()=>this.LikePost(item.post_id)}
                             >
@@ -379,4 +381,4 @@ const styles = StyleSheet.create({
 
     }
 )
-export default profile;
+export default UserProfile;
