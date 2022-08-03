@@ -152,8 +152,8 @@ class FriendRequests extends Component{
                     renderItem={({item}) =>
                     <View> 
                     <Text>
-                        {item.first_name} {item.last_name} {item.user_id}
-                        {/* {item.first_name +' '+ item.last_name +' ('+ item.email +')'}  */}
+                        {/* {item.first_name} {item.last_name} {item.user_id} */}
+                        {item.first_name +' '+ item.last_name +' ('+ item.email +')'} 
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.AcceptFriendRequest(item.user_id)}
