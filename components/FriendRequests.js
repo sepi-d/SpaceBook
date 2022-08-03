@@ -162,15 +162,19 @@ class FriendRequests extends Component{
                             Accept
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.RejectFriendRequest(item.user_id)}
+                    >
                         <Text>
-
+                            Reject
                         </Text>
                     </TouchableOpacity>
                     </View>
                     }
                     //renderItem ends
                 />   
+
+
         
 
                 

@@ -29,7 +29,7 @@ class Friends extends Component{
         return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/friends", {    
             headers: {
                 'X-Authorization':  token
-            }
+                }
             })
 
             .then((response) => {
@@ -72,9 +72,12 @@ class Friends extends Component{
                     onPress={() => nav.navigate('FriendRequests')}
                 >
                     <Text>
-                        Friend Requests
+                         Pending Friend Requests
                     </Text>
                 </TouchableOpacity>
+            </View>
+            <View>
+                <Text>List of friends : </Text>
             </View>
            
             <FlatList
@@ -82,7 +85,7 @@ class Friends extends Component{
             data={this.state.friendList}
             renderItem={({item}) =>
             <View>
-                <Text> {item.first_name} {item.last_name} ({item.user_email}) </Text>
+                <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
                 {/* <TouchableOpacity>
                     <Text>
                         Add to Friends
