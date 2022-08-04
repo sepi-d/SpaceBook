@@ -91,7 +91,7 @@ class Friends extends Component{
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity
                                 style={styles.buttons}
-                                // go to friend profile with friend given id
+                                // go to friend  with friend given id
                                 onPress={() => nav.navigate('FriendProfile', {userId: item.user_id})}
                             >
                                 <Text style={styles.buttonText}>

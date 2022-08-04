@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlatList } from 'react-native-gesture-handler';
 import HomeScreen from "./HomeScreen"
 
-class singlePost extends Component{
+class SinglePost extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -163,4 +163,4 @@ const styles = StyleSheet.create({
     //     marginBottom: 20,
     //   },
 });
-export default singlePost;
+export default SinglePost;

@@ -111,7 +111,6 @@ class HomeScreen extends Component{
         return(
             <ScrollView style={styles.container}>
                 
-            
                 <View >
                     <View style={styles.welcomeContainer}>
                         <Text style={styles.welcomeMessage}>
@@ -129,11 +128,10 @@ class HomeScreen extends Component{
                         />
                         
                         <Button
-                     color="red"
-                     onPress={()=> this.Logout()}
-                     title="Log out"
-                     accessibillityLable="Log in to your space book account"
-                    
+                            color="red"
+                            onPress={()=> this.Logout()}
+                            title="Log out"
+                            accessibillityLable="Log in to your space book account"            
                     />
 
                     </View>

@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlatList } from 'react-native-gesture-handler';
 import HomeScreen from "./HomeScreen"
 
-class profile extends Component{
+class Profile extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -245,22 +245,6 @@ class profile extends Component{
         return(
             <ScrollView style={styles.container}>
                 <View >
-                    {/* <View style={styles.editProfileButton}>
-                        <Button
-                            color="#841584"
-                            title="  Edit "
-                            textAlign= 'center'
-        
-                        />
-                        <Button
-                            color="#841584"
-                            title="Friends"
-                            textAlign= 'center'
-                            alignItems= 'center'
-
-                        />
-
-                    </View> */}
                     <View>
                         <TextInput
                             style={styles.postInput}
@@ -361,13 +345,12 @@ const styles = StyleSheet.create({
 
 
     },
-
-    editProfileButton:{
-        flexDirection:'row',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding:50
-    },
+    // editProfileButton:{
+    //     flexDirection:'row',
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     padding:50
+    // },
 
     postButton:{
         textAlign:  'center',
@@ -384,7 +367,7 @@ const styles = StyleSheet.create({
     },
     // posButtontDiv:{
     //     margin: 'auto',
-    // }
+    // }    
 
     allPostContainer:{
         marginBottom:100,
@@ -440,4 +423,4 @@ const styles = StyleSheet.create({
     
     }
 );
-export default profile;
+export default Profile;

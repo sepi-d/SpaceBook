@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
 import { Button } from "react-native-web";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class updateDetails extends Component{
+class UpdateDetails extends Component{
     constructor(props){
 
         super(props);
@@ -220,4 +220,4 @@ const styles = StyleSheet.create({
 
 
 
-export default updateDetails;
+export default UpdateDetails;

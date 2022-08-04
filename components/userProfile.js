@@ -295,19 +295,18 @@ class UserProfile extends Component{
                                         style={styles.buttons}
                                         onPress={()=>this.LikePost(item.post_id)}
                                     >
-                                        <Text> Like {item.numLikes}  </Text>
+                                        <Text style={styles.buttonText}> Like {item.numLikes}  </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={styles.buttons}
                                         onPress={()=>this.DeleteLike(item.post_id)}
                                     >
-                                        <Text> Delete Like </Text>
+                                        <Text style={styles.buttonText}> Delete Like </Text>
                                     </TouchableOpacity>
                                 </View>
                             
                             </View>
                         }
-                        // keyExtractor={({id},index => post_id )}                    
 
                         />
                     </View>

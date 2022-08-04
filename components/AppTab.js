@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Friends from './Friends';
 import HomeScreen from './HomeScreen';
-import profile from './profile';
+import Profile from './Profile';
 import SearchUsers from './SearchUsers';
 
 
@@ -22,9 +22,9 @@ class AppTab extends Component{
         return(
 
         <Tab.Navigator>
-            <Tab.Screen name="HomeScreen" component={HomeScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Friends" component={Friends} />
-            <Tab.Screen name= "Profile" component={profile}/>
+            <Tab.Screen name= "Posts" component={Profile}/>
             <Tab.Screen name= "Search" component={SearchUsers}/>
             
 

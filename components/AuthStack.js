@@ -11,9 +11,9 @@ import AppTab from './AppTab';
 import FriendRequests from './FriendRequests';
 import Friends from './Friends';
 import UserProfile from './userProfile';
-import updateDetails from './updateDetails';
-import singlePost from './singlePost';
-import profile from './profile';
+import SinglePost from './SinglePost';
+import Profile from './Profile';
+import UpdateDetails from './UpdateDetails';
 const Stack = createNativeStackNavigator();
 
 class AuthStack extends Component{
@@ -32,9 +32,9 @@ class AuthStack extends Component{
           <Stack.Screen name= 'FriendRequests' component ={FriendRequests}/>
           <Stack.Screen name = 'Friends' component={Friends}/>
           <Stack.Screen name = 'FriendProfile' component={UserProfile}/>
-          <Stack.Screen name ="Edit" component={updateDetails}/>
-          <Stack.Screen name = "singlePost" component={singlePost}/>
-          <Stack.Screen name = "profile" component={profile}/>
+          <Stack.Screen name ="Edit" component={UpdateDetails}/>
+          <Stack.Screen name = "singlePost" component={SinglePost}/>
+          <Stack.Screen name = "profile" component={Profile}/>
         </Stack.Navigator>
             
         );
