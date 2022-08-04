@@ -260,8 +260,7 @@ class UserProfile extends Component{
                             style={styles.postInput}
                             placeholder='post...' 
                             onChangeText={this.postInput}
-                            value= {this.state.text}
-                            
+                            value= {this.state.text}       
                         />
                     </View>
                     <View style={{alignSelf:'center'}}>
@@ -341,7 +340,6 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // justifyContent: 'center',
         fontSize:20,
-
     },
     postInput:{
         height: 50,
@@ -350,8 +348,6 @@ const styles = StyleSheet.create({
         marginBottom:50,
         borderWidth:1,
         padding:20,
-        
-
     },
 
     editProfileButton:{

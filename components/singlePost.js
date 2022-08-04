@@ -126,28 +126,27 @@ class SinglePost extends Component{
     }
         render(){
             return(
-                <View>
-                        {/* <View>
-                            <Text> {this.state.singlePost.text} </Text>
-                        </View> */}
-
-                        <View>
-                        <TextInput
-                            // style={styles.formInput}
-                            placeholder="Post ..."
-                            onChangeText={this.textInput }
-                            value={this.state.text}
-                        />
-                        </View>
-                        <View>
-                            <TouchableOpacity
-                                onPress={()=> this.EditPost()}
-                            >
-                                <Text> Update post </Text>
-                            </TouchableOpacity>
-                        </View>
-
+                <ScrollView style={styles.container}>     
+                    <View style={styles.postInput}>
+                    <TextInput
+                        // style={styles.formInput}
+                        placeholder="Post ..."
+                        onChangeText={this.textInput }
+                        value={this.state.text}
+                    />
                     </View>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            style={styles.buttons}
+                            onPress={()=> this.EditPost()}
+                        >
+                            <Text style={styles.buttonText}> 
+                                Update post 
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </ScrollView>
 
 
     );
@@ -155,12 +154,40 @@ class SinglePost extends Component{
 }
 }
 const styles = StyleSheet.create({
-    // hline: {
-    //     backgroundColor: '#808080',
-    //     height: 2,
-    //     width: 200,
-    //     marginTop: 20,
-    //     marginBottom: 20,
-    //   },
-});
+    container:{
+        flex:1,
+        backgroundColor:'antiquewhite',
+    },
+    postInput:{
+        height: 50,
+        margin: 50,
+        marginTop: 20,
+        marginBottom:50,
+        borderWidth:1,
+        padding:20,
+    },
+    buttonContainer:{
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+     buttons:{
+        textAlign:  'center',
+        // flexDirection: 'row',
+        padding: 5,
+        // elevation: 3,
+        backgroundColor:'#841584',
+        alignItems: 'center',
+        // justifyContent: 'center',
+        elevation: 8,
+        borderRadius: 10,
+        // width:100,
+        margin:10,
+    },
+    
+    buttonText:{
+        color:"white",
+    },
+    
+    });
 export default SinglePost;

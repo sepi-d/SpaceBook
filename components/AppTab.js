@@ -21,8 +21,19 @@ class AppTab extends Component{
     render(){
         return(
 
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle:{ backgroundColor: "cream"
+
+                }
+            }}
+        >
+            <Tab.Screen name="Home" component={HomeScreen} option={{
+                tabBarIcon: ({color, size}) => (
+                    <AntDesign name = "home" color={color} size={size}/>
+                )
+            }}/>
             <Tab.Screen name="Friends" component={Friends} />
             <Tab.Screen name= "Posts" component={Profile}/>
             <Tab.Screen name= "Search" component={SearchUsers}/>

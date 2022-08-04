@@ -89,12 +89,15 @@ class SingUp extends Component{
                                 secureTextEntry={true}
                             />
                         </View>
-
+                        <View style={styles.button}>
                         <Button
+                            color="#841584"
                             title='Sign up'
                             onPress={() => this.signUp() }
-
                         />
+                        </View>
+
+                       
 
                         
 
@@ -126,9 +129,13 @@ const styles = StyleSheet.create({
         backgroundColor:'',
         paddingTop:30,
         paddingBottom:20,
-        fontSize:25
+        fontSize:25,
+        margin:30
     },
     formItem:{
+        paddingTop:30,
+        paddingBottom:20,
+        marginRight:30
         
 
     },
@@ -143,8 +150,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom:10,
         borderWidth:1,
+        marginRight:50,
+        marginLeft:50,
 
     },
+    button:{
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 
 })
 

@@ -24,17 +24,22 @@ class AuthStack extends Component{
 
     render(){
         return(
-        <Stack.Navigator  initialRouteName='AuthChecker'>
-          <Stack.Screen name= 'AuthChecker' component={AuthChecker}/>
-          <Stack.Screen name= 'SignIn' component={SignIn}/>
-          <Stack.Screen name='Home' component={AppTab}/>
-          <Stack.Screen name='Signup' component={SingUp} />
-          <Stack.Screen name= 'FriendRequests' component ={FriendRequests}/>
-          <Stack.Screen name = 'Friends' component={Friends}/>
-          <Stack.Screen name = 'FriendProfile' component={UserProfile}/>
-          <Stack.Screen name ="Edit" component={UpdateDetails}/>
-          <Stack.Screen name = "singlePost" component={SinglePost}/>
-          <Stack.Screen name = "profile" component={Profile}/>
+        <Stack.Navigator  
+            initialRouteName='AuthChecker'
+            // screenOptions={{
+            //     headerShown :false
+            // }}
+        >
+          <Stack.Screen name= 'AuthChecker' component={AuthChecker} options={{title:false}}/>
+          <Stack.Screen name= 'SignIn' component={SignIn} options={{title:false}}/>
+          <Stack.Screen name='Home' component={AppTab} options={{title:false}}/>
+          <Stack.Screen name='Signup' component={SingUp} options={{title:false}} />
+          <Stack.Screen name= 'FriendRequests' component ={FriendRequests} options={{title:false}}/>
+          <Stack.Screen name = 'Friends' component={Friends} options={{title:false}}/>
+          <Stack.Screen name = 'FriendProfile' component={UserProfile} options={{title:false}}/>
+          <Stack.Screen name ="Edit" component={UpdateDetails} options={{title:false}}/>
+          <Stack.Screen name = "singlePost" component={SinglePost} options={{title:false}}/>
+          <Stack.Screen name = "profile" component={Profile} options={{title:false}}/>
         </Stack.Navigator>
             
         );

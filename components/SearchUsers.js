@@ -14,7 +14,6 @@ class SearchUsers extends Component{
             userID:'',
             sendFriendRequest:[],
         }
-
     }
 
 
@@ -111,10 +110,6 @@ class SearchUsers extends Component{
         })
     }
     
-    
-
-
-
     render(){
         return(
            <ScrollView style={styles.container}>
@@ -247,8 +242,6 @@ const styles = StyleSheet.create({
         marginLeft:20,
 
     },
-
-
     
     });
 
