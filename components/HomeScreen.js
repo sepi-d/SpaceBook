@@ -106,6 +106,8 @@ class HomeScreen extends Component{
 
 
     render(){
+
+        const nav = this.props.navigation;
         return(
             <ScrollView style={styles.container}>
                 
@@ -116,13 +118,26 @@ class HomeScreen extends Component{
                             Hello {this.state.first_name}   
                         </Text>
                     </View>
-                    <Button
+                    <View style={styles.editProfileButton}>
+                        <Button
+                            color="#841584"
+                            title="  Edit "
+                            textAlign= 'center'
+                            onPress={()=> nav.navigate('Edit')}
+
+        
+                        />
+                        
+                        <Button
                      color="red"
                      onPress={()=> this.Logout()}
                      title="Log out"
                      accessibillityLable="Log in to your space book account"
                     
                     />
+
+                    </View>
+                    
                        
 
                 
@@ -147,7 +162,45 @@ const styles= StyleSheet.create({
 
     welcomeMessage:{
         fontSize:25,
-    }
+    },
+        container:{
+            flex:1,
+            backgroundColor:'antiquewhite',
+            // alignItems: 'center',
+            // justifyContent: 'center',
+            
+        },
+        postInput:{
+            height: 50,
+            margin: 50,
+            marginTop: 10,
+            marginBottom:50,
+            borderWidth:1,
+            padding:20,
+    
+        },
+    
+        editProfileButton:{
+            flexDirection:'row',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding:50
+        },
+    
+        postButton:{
+            textAlign:  'center',
+            // flexDirection: 'row',
+            height: 50,
+            // elevation: 3,
+            backgroundColor:'#841584',
+            alignItems: 'center',
+            justifyContent: 'center',
+            elevation: 8,
+            borderRadius: 10,
+            paddingVertical: 10,
+            paddingHorizontal: 12,
+            width:100,
+        },
     
 
 });

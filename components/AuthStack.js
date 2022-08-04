@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createStackNavigator } from '@react-navigation/stack';
+
 
 import AuthChecker from './AuthChecker';
 import SignIn from './SignIn';
@@ -11,6 +11,8 @@ import AppTab from './AppTab';
 import FriendRequests from './FriendRequests';
 import Friends from './Friends';
 import UserProfile from './userProfile';
+import updateDetails from './updateDetails';
+import singlePost from './singlePost';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,8 @@ class AuthStack extends Component{
           <Stack.Screen name= 'FriendRequests' component ={FriendRequests}/>
           <Stack.Screen name = 'Friends' component={Friends}/>
           <Stack.Screen name = 'FriendProfile' component={UserProfile}/>
+          <Stack.Screen name ="Edit" component={updateDetails}/>
+          <Stack.Screen name = "singlePost" component={singlePost}/>
         </Stack.Navigator>
             
         );

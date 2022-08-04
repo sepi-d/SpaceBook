@@ -1,30 +1,28 @@
 import React, { Component} from "react";
 import { View, Text, StyleSheet, TextInput, FlatList} from 'react-native';
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class Friends extends Component{
     constructor(props){
         super(props);
         this.state={
-
             isLoading:true,
             friendList:[],
-
         }
-
     }
 
     componentDidMount(){
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-        });
+        // this._unsubscribe = this.props.navigation.addListener('focus', () => {
+        // });
         this.GetFriends();        
     }
 
+    // Get list of friends from API
     GetFriends = async () => {
+        // getting userid and token from AsyncStorage
         const token = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
-        //const searchUser = this.state.searchUser;
 
         return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/friends", {    
             headers: {
@@ -33,7 +31,6 @@ class Friends extends Component{
             })
 
             .then((response) => {
-                // console.log(response.json());
                  if(response.status === 200){
                      return response.json();
      
@@ -50,6 +47,8 @@ class Friends extends Component{
              })
             .then((responseJson) => {
                 this.setState({
+                    //set is Loading to false
+                    // set friendList to responseJson
                     isLoading:false,
                     friendList: responseJson,
                 });
@@ -57,19 +56,15 @@ class Friends extends Component{
             })
             .catch((error) => {
                 console.log(error);
-
             });
-
     }
-
-
-    
     
     render(){
+        
         const nav = this.props.navigation;
 
         return(
-           <View>
+           <View style={styles.container}>
             <View>
                 <TouchableOpacity
                     onPress={() => nav.navigate('FriendRequests')}
@@ -107,6 +102,57 @@ class Friends extends Component{
 
         );
     }
+    
 }
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'antiquewhite',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        
+    },
+    postInput:{
+        height: 50,
+        margin: 50,
+        marginTop: 10,
+        marginBottom:50,
+        borderWidth:1,
+        padding:20,
+
+    },
+
+    editProfileButton:{
+        flexDirection:'row',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding:50
+    },
+
+    postButton:{
+        textAlign:  'center',
+        // flexDirection: 'row',
+        height: 50,
+        // elevation: 3,
+        backgroundColor:'#841584',
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        width:100,
+    },
+    // posButtontDiv:{
+    //     margin: 'auto',
+    // }
+
+    friendTitle:{
+
+    },
+
+
+    
+    });
 
 export default Friends; 

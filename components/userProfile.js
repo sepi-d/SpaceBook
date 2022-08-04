@@ -13,10 +13,12 @@ class UserProfile extends Component{
         this.state = {
             // first_name: '',
             // last_name: '',
+            //get the friend user id 
             userID: props.route.params.userId,
             isLoading:true,
             postList:[],
             newPost:'',
+            userDetails:[],
         }
     }
 
@@ -29,11 +31,48 @@ class UserProfile extends Component{
     componentDidMount(){
         // this._unsubscribe = this.props.navigation.addListener('focus', () => {
         // });
-        this.GetSavedPost();        
+        this.GetSavedPost();   
+        this.getUserDetails();
+
     }
 
 
     //
+    getUserDetails = async () => {
+
+        const token = await AsyncStorage.getItem('@session_token');
+        const userID = this.state.userID
+
+        return fetch("http://localhost:3333/api/1.0.0/user/"+userID, {
+            headers: {
+                'X-Authorization':  token
+            }
+        })
+        .then((response) => {
+           // console.log(response.json());
+            if(response.status === 200){
+                return response.json();
+            
+
+            }else if(response.status === 400){
+                throw 'Failed validation';
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .then((responseJson) => {
+            console.log(responseJson);
+               this.setState({
+                // set userDetails to responseJson
+                userDetails:responseJson,
+               })
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    // gets all the friend saved posts (display friend posts on theor wall )
     GetSavedPost = async () => {
         const token = await AsyncStorage.getItem('@session_token');
         const userID = this.state.userID;
@@ -118,47 +157,7 @@ class UserProfile extends Component{
         })
     }
 
-    // Delete saved posts 
-
-    // DeletePost = async(post_id) => {
-    //     const userID = await AsyncStorage.getItem('@user_id');
-    //     const token = await AsyncStorage.getItem('@session_token');
-
-    //     return fetch("http://localhost:3333/api/1.0.0/user/"+userID+"/post/"+post_id, {
-    //         method: 'delete',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-Authorization':  token
-    //         },
-    //     })
-    //     .then((response) => {
-    //         if(response.status === 200){
-    //             this.GetSavedPost();
-    //             return ;
-    //         }else if(response.status === 401){
-    //             throw 'Unauthorised';
-    //         }else if(response.status === 403)
-    //         {
-    //             throw 'Forbidden - you can only delete your own posts';
-
-    //         }else if(response.status === 404)
-    //         {
-    //             throw 'Not Found';
-    //         }else if(response.status === 500){
-    //             throw 'Server Error';
-    //         }else{
-    //             throw ' something went wrong';
-    //         }
-    //     })
-    //     .then((responseJson) => {
-    //            console.log("post deleted ", responseJson);
-    //            //this.props.navigation.navigate("Home");
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
-    // }
-
+    
     // like a post 
     LikePost = async(post_id) => {
         const userID = this.state.userID;
@@ -203,7 +202,7 @@ class UserProfile extends Component{
     }       
 
 
-    //delete like 
+    //delete like  from a  friend's post user liked 
     DeleteLike = async(post_id) => {
         const userID = this.state.userID;
         const token = await AsyncStorage.getItem('@session_token');
@@ -224,9 +223,7 @@ class UserProfile extends Component{
                 throw 'Unauthorised';
             }else if(response.status === 403)
             {   
-                
                 throw 'Forbidden - you already liked this post';
-
             }else if(response.status === 404)
             {
                 throw 'Not Found';
@@ -247,28 +244,16 @@ class UserProfile extends Component{
     }    
 
 
-
-
     render(){
         return(
             <ScrollView style={styles.container}>
                 <View >
-                    <View style={styles.editProfileButton}>
-                        <Button
-                            color="#841584"
-                            title="  Edit "
-                            textAlign= 'center'
-        
-                        />
-                        <Button
-                            color="#841584"
-                            title="Friends"
-                            textAlign= 'center'
-                            alignItems= 'center'
-
-                        />
-
+                    <View style={styles.welcomeContainer}>
+                        <Text style={styles.welcomeText}>
+                            Hello Welcom to {this.state.userDetails.first_name}'s page
+                        </Text>
                     </View>
+
                     <View>
                         <TextInput
                             style={styles.postInput}
@@ -294,18 +279,14 @@ class UserProfile extends Component{
                     </View>
 
                     <View>
-
+                        {/* display post on friend profile */}
                         <FlatList
                             keyExtractor={(item, index) => index}   
                             data={this.state.postList}
                             renderItem={({item}) => 
                             <View>
                             <Text>{item.text}</Text>
-                            {/* <TouchableOpacity
-                                onPress={()=>this.DeletePost(item.post_id)}
-                            >
-                                <Text> Delete  </Text>
-                            </TouchableOpacity> */}
+
                             <TouchableOpacity
                                 onPress={()=>this.LikePost(item.post_id)}
                             >
@@ -343,6 +324,17 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         
     },
+    welcomeContainer:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 50,
+    },
+    welcomeText:{
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        fontSize:40,
+
+    },
     postInput:{
         height: 50,
         margin: 50,
@@ -350,6 +342,7 @@ const styles = StyleSheet.create({
         marginBottom:50,
         borderWidth:1,
         padding:20,
+        marginTop:100,
 
     },
 

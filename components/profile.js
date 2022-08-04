@@ -42,7 +42,6 @@ class profile extends Component{
                 'X-Authorization':  token
             }
             })
-
             .then((response) => {
                 // console.log(response.json());
                  if(response.status === 200){
@@ -65,12 +64,7 @@ class profile extends Component{
                 console.log(error);
 
             });
-
     }
-
-
-
-
 
     // save writen post in to the database using POST request 
 
@@ -157,7 +151,7 @@ class profile extends Component{
         })
     }
 
-    // like a post 
+    // like a single post using post id and user id 
     LikePost = async(post_id) => {
         const userID = await AsyncStorage.getItem('@user_id');
         const token = await AsyncStorage.getItem('@session_token');
@@ -251,7 +245,7 @@ class profile extends Component{
         return(
             <ScrollView style={styles.container}>
                 <View >
-                    <View style={styles.editProfileButton}>
+                    {/* <View style={styles.editProfileButton}>
                         <Button
                             color="#841584"
                             title="  Edit "
@@ -266,7 +260,7 @@ class profile extends Component{
 
                         />
 
-                    </View>
+                    </View> */}
                     <View>
                         <TextInput
                             style={styles.postInput}
@@ -282,38 +276,56 @@ class profile extends Component{
                             onPress={() => this.SavePost()}
                             // style={styles.postButton}
                             >
-                                <Text> Post </Text>
+                                <Text style={styles.buttonText}> Post </Text>
                         </TouchableOpacity> 
                     </View>    
-                    <View>
+                    <View style={styles.postTopicContainer}>
                         <Text>
-                            POSTS on the Wall : 
+                            Posts on your wall : 
                         </Text>
                     </View>
 
-                    <View>
-
+                    <View style={styles.allPostContainer}>
                         <FlatList
                             keyExtractor={(item, index) => index}   
                             data={this.state.postList}
                             renderItem={({item}) => 
-                            <View>
-                            <Text>{item.text}</Text>
-                            <TouchableOpacity
-                                onPress={()=>this.DeletePost(item.post_id)}
-                            >
-                                <Text> Delete  </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={()=>this.LikePost(item.post_id)}
-                            >
-                                <Text> Like {item.numLikes}  </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={()=>this.DeleteLike(item.post_id)}
-                            >
-                                <Text> Delete Like </Text>
-                            </TouchableOpacity>
+                            <View style={styles.postListContainer}>
+                                <View> 
+                                    <Text>{item.text}</Text>
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                   
+                                <TouchableOpacity
+                                    // navigate to singlePost component
+                                    style={styles.buttons}
+                                    onPress={()=> this.props.navigation.navigate("singlePost", {post_id: item.post_id})}
+                                >
+                                    <Text style={styles.buttonText}> View Post </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={styles.buttons}
+                                    onPress={()=>this.DeletePost(item.post_id)}
+                                >
+                                    <Text style={styles.buttonText}> Delete  </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    style={styles.buttons}
+                                    onPress={()=>this.LikePost(item.post_id)}
+                                >
+                                    <Text style={styles.buttonText}> Like {item.numLikes}  </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                     style={styles.buttons}
+                                    onPress={()=>this.DeleteLike(item.post_id)}
+                                >
+                                    <Text style={styles.buttonText}> Delete Like </Text>
+                                </TouchableOpacity>
+                                </View>
+                                
                             </View>
                         }
                         // keyExtractor={({id},index => post_id )}                    
@@ -321,9 +333,6 @@ class profile extends Component{
                         />
                     </View>
 
-                    <View>
-
-                    </View>
                 </View>
         </ScrollView>
       
@@ -333,6 +342,7 @@ class profile extends Component{
 
 
 }
+
 const styles = StyleSheet.create({
     container:{
         flex:1,
@@ -344,10 +354,11 @@ const styles = StyleSheet.create({
     postInput:{
         height: 50,
         margin: 50,
-        marginTop: 10,
+        marginTop: 100,
         marginBottom:50,
         borderWidth:1,
         padding:20,
+
 
     },
 
@@ -368,15 +379,65 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation: 8,
         borderRadius: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
         width:100,
+        margin:20,
     },
     // posButtontDiv:{
     //     margin: 'auto',
     // }
 
+    allPostContainer:{
+        marginBottom:100,
+        marginRight:20,
+        margin:10,
 
+    },
+    postTopicContainer:{
+        marginTop: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection:'row',
+        flex:1,
+    },
+    postTopicText:{
+        fontSize:30,
+    },
+
+    postListContainer:{
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // flexDirection:'row',
+        flex:1,
+        marginLeft:20,
+
+    },
+
+    buttonContainer:{
+        flexDirection:'row',
+        flex:1,
+
+    },
+    buttons:{
+        textAlign:  'center',
+        // flexDirection: 'row',
+        height: 20,
+        // elevation: 3,
+        backgroundColor:'#841584',
+        alignItems: 'center',
+        // justifyContent: 'center',
+        elevation: 8,
+        borderRadius: 10,
+        // width:100,
+        margin:20,
+    },
+    
+    buttonText:{
+        color:"white",
     }
-)
+
+
+    
+    }
+);
 export default profile;

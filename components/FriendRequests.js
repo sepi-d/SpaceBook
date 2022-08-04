@@ -105,6 +105,8 @@ class FriendRequests extends Component{
 
 
      RejectFriendRequest = async(user_id) =>{
+        //user token
+        const token = await AsyncStorage.getItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/friendrequests/"+user_id, {
             method: 'delete',
             headers: {
