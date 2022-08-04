@@ -249,8 +249,9 @@ class UserProfile extends Component{
             <ScrollView style={styles.container}>
                 <View >
                     <View style={styles.welcomeContainer}>
-                        <Text style={styles.welcomeText}>
-                            Hello Welcom to {this.state.userDetails.first_name}'s page
+                        <Text style={styles.welcomeText}> Hello! </Text>
+                        <Text >
+                            Welcome to {this.state.userDetails.first_name}'s page
                         </Text>
                     </View>
 
@@ -334,22 +335,23 @@ const styles = StyleSheet.create({
     welcomeContainer:{
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 50,
+        paddingTop: 40,
+        margin:30,
     },
     welcomeText:{
         // alignItems: 'center',
         // justifyContent: 'center',
-        fontSize:40,
+        fontSize:20,
 
     },
     postInput:{
         height: 50,
         margin: 50,
-        marginTop: 10,
+        marginTop: 20,
         marginBottom:50,
         borderWidth:1,
         padding:20,
-        marginTop:100,
+        
 
     },
 

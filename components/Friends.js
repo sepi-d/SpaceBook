@@ -29,7 +29,6 @@ class Friends extends Component{
                 'X-Authorization':  token
                 }
             })
-
             .then((response) => {
                  if(response.status === 200){
                      return response.json();
@@ -65,36 +64,45 @@ class Friends extends Component{
 
         return(
            <View style={styles.container}>
-            <View>
-                <TouchableOpacity
-                    onPress={() => nav.navigate('FriendRequests')}
-                >
-                    <Text>
-                         Pending Friend Requests
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text>List of friends : </Text>
-            </View>
-           
-            <FlatList
-            keyExtractor={(item, index) => index}
-            data={this.state.friendList}
-            renderItem={({item}) =>
-            <View>
-                <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
-                <TouchableOpacity
-                    // go to friend profile with friend given id
-                    onPress={() => nav.navigate('FriendProfile', {userId: item.user_id})}
-                >
-                    <Text>
-                        View Profile
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            }
-            />
+    
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.buttons}
+                        onPress={() => nav.navigate('FriendRequests')}
+                    >
+                        <Text style={styles.buttonText}>
+                            Pending Friend Requests
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.friendsContainer}>
+                    <Text style={styles.friendsTopicText}>List of friends : </Text>
+                </View>
+
+                <View>
+                    <FlatList
+                    keyExtractor={(item, index) => index}
+                    data={this.state.friendList}
+                    renderItem={({item}) =>
+                    <View style={styles.friendsListContainer}>
+                        <Text> {item.user_givenname} {item.user_familyname} ({item.user_email}) </Text>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity
+                                style={styles.buttons}
+                                // go to friend profile with friend given id
+                                onPress={() => nav.navigate('FriendProfile', {userId: item.user_id})}
+                            >
+                                <Text style={styles.buttonText}>
+                                    View Profile
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    }
+                    />
+                    </View>
             </View>
 
             
@@ -122,32 +130,49 @@ const styles = StyleSheet.create({
 
     },
 
-    editProfileButton:{
-        flexDirection:'row',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding:50
-    },
+    buttonContainer:{
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
 
-    postButton:{
+    },
+     buttons:{
         textAlign:  'center',
         // flexDirection: 'row',
-        height: 50,
+        padding: 5,
         // elevation: 3,
         backgroundColor:'#841584',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         elevation: 8,
         borderRadius: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        width:100,
+        // width:100,
+        margin:10,
     },
-    // posButtontDiv:{
-    //     margin: 'auto',
-    // }
+    
+    buttonText:{
+        color:"white",
+    },
 
-    friendTitle:{
+    friendsContainer:{
+        marginTop: 20,
+        marginBottom:20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection:'row',
+        // flex:1,
+    },
+    friendsTopicText:{
+        fontSize:30,
+    },
+
+    friendsListContainer:{
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // flexDirection:'row',
+        flex:1,
+        marginLeft:20,
 
     },
 
