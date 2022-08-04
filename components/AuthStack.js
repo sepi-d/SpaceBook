@@ -13,7 +13,7 @@ import Friends from './Friends';
 import UserProfile from './userProfile';
 import updateDetails from './updateDetails';
 import singlePost from './singlePost';
-
+import profile from './profile';
 const Stack = createNativeStackNavigator();
 
 class AuthStack extends Component{
@@ -34,6 +34,7 @@ class AuthStack extends Component{
           <Stack.Screen name = 'FriendProfile' component={UserProfile}/>
           <Stack.Screen name ="Edit" component={updateDetails}/>
           <Stack.Screen name = "singlePost" component={singlePost}/>
+          <Stack.Screen name = "profile" component={profile}/>
         </Stack.Navigator>
             
         );

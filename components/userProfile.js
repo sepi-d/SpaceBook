@@ -272,31 +272,38 @@ class UserProfile extends Component{
                                 <Text> Post </Text>
                         </TouchableOpacity> 
                     </View>    
-                    <View>
+                    <View style={styles.postTopicContainer}>
                         <Text>
                             POSTS on the Wall : 
                         </Text>
                     </View>
 
-                    <View>
+                    <View style={styles.allPostContainer}>
                         {/* display post on friend profile */}
                         <FlatList
                             keyExtractor={(item, index) => index}   
                             data={this.state.postList}
                             renderItem={({item}) => 
-                            <View>
-                            <Text>{item.text}</Text>
-
-                            <TouchableOpacity
-                                onPress={()=>this.LikePost(item.post_id)}
-                            >
-                                <Text> Like {item.numLikes}  </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={()=>this.DeleteLike(item.post_id)}
-                            >
-                                <Text> Delete Like </Text>
-                            </TouchableOpacity>
+                            <View style={styles.postListContainer}>
+                                <View>
+                                    <Text>{item.text}</Text>
+                                </View>
+                            
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity
+                                        style={styles.buttons}
+                                        onPress={()=>this.LikePost(item.post_id)}
+                                    >
+                                        <Text> Like {item.numLikes}  </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.buttons}
+                                        onPress={()=>this.DeleteLike(item.post_id)}
+                                    >
+                                        <Text> Delete Like </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            
                             </View>
                         }
                         // keyExtractor={({id},index => post_id )}                    
@@ -370,6 +377,56 @@ const styles = StyleSheet.create({
     // posButtontDiv:{
     //     margin: 'auto',
     // }
+    allPostContainer:{
+        marginBottom:100,
+        marginRight:20,
+        margin:10,
+
+    },
+    postTopicContainer:{
+        marginTop: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection:'row',
+        flex:1,
+    },
+    postTopicText:{
+        fontSize:30,
+    },
+
+    postListContainer:{
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // flexDirection:'row',
+        flex:1,
+        marginLeft:20,
+
+    },
+
+    buttonContainer:{
+        flexDirection:'row',
+        flex:1,
+
+    },
+    buttons:{
+        textAlign:  'center',
+        // flexDirection: 'row',
+        padding: 5,
+        // elevation: 3,
+        backgroundColor:'#841584',
+        alignItems: 'center',
+        // justifyContent: 'center',
+        elevation: 8,
+        borderRadius: 10,
+        // width:100,
+        margin:10,
+    },
+    
+    buttonText:{
+        color:"white",
+    }
+
 
 
     }

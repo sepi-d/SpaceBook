@@ -116,7 +116,8 @@ class singlePost extends Component{
             // test 
                console.log("post updated.");
             // navigate user to the homescreen
-            //    this.props.navigation.navigate("Home");
+            this.props.navigation.navigate("profile");
+        
         })
         .catch((error) => {
         //    console.log(JSON.stringify(this.state));

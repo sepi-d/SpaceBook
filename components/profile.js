@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     buttons:{
         textAlign:  'center',
         // flexDirection: 'row',
-        height: 20,
+        padding: 5,
         // elevation: 3,
         backgroundColor:'#841584',
         alignItems: 'center',
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
         elevation: 8,
         borderRadius: 10,
         // width:100,
-        margin:20,
+        margin:10,
     },
     
     buttonText:{
