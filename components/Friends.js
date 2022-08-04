@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         // flex:1,
     },
     friendsTopicText:{
-        fontSize:30,
+        fontSize:20,
     },
 
     friendsListContainer:{

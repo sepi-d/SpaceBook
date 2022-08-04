@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
 import React, { Component} from "react";
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, SectionList} from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScrollView } from 'react-native-gesture-handler';
 
 class FriendRequests extends Component{
     constructor(props){
@@ -142,48 +143,113 @@ class FriendRequests extends Component{
 
     render(){
         return(
-            <View>
-                <View>
-                <Text>Friend Requests Lists : </Text>
-
-                </View>
-
-                <FlatList
-                    keyExtractor={(item, index) => index}   
-                    data = { this.state.friendRequestsList}
-                    renderItem={({item}) =>
-                    <View> 
-                    <Text>
-                        {/* {item.first_name} {item.last_name} {item.user_id} */}
-                        {item.first_name +' '+ item.last_name +' ('+ item.email +')'} 
-                    </Text>
-                    <TouchableOpacity
-                        onPress={() => this.AcceptFriendRequest(item.user_id)}
-                    >
-                        <Text>
-                            Accept
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => this.RejectFriendRequest(item.user_id)}
-                    >
-                        <Text>
-                            Reject
-                        </Text>
-                    </TouchableOpacity>
+            <ScrollView style={styles.container}>
+                <View> 
+                    <View style={styles.friendreqContainer}>
+                        <Text style={styles.friendReqTopicText}>Friend Requests Lists : </Text>
                     </View>
-                    }
-                    //renderItem ends
-                />   
+                    <View>
+                        <FlatList
+                            keyExtractor={(item, index) => index}   
+                            data = { this.state.friendRequestsList}
+                            renderItem={({item}) =>
+                            <View style={styles.friendsListContainer}> 
+                                <Text> 
+                                    {/* {item.first_name} {item.last_name} {item.user_id} */}
+                                    {item.first_name +' '+ item.last_name +' ('+ item.email +')'} 
+                                </Text>
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity
+                                        style={styles.buttons}
+                                        onPress={() => this.AcceptFriendRequest(item.user_id)}
+                                    >
+                                        <Text styles={styles.buttonText}>
+                                            Accept
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.buttons}
+                                        onPress={() => this.RejectFriendRequest(item.user_id)}
+                                    >
+                                        <Text styles={styles.buttonText}>
+                                            Reject
+                                        </Text>
+                                    </TouchableOpacity> 
+                                </View>
+                            </View>
+                            }
+                            //renderItem ends
+                        />   
+                    </View>  
 
 
-        
+            
 
-                
-            </View>
+                    
+                </View>
+            </ScrollView>
 
         );
 
     }
 }
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'antiquewhite',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        
+    },
+
+    buttonContainer:{
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection:'row',
+
+
+    },
+     buttons:{
+        textAlign:  'center',
+        // flexDirection: 'row',
+        padding: 5,
+        // elevation: 3,
+        backgroundColor:'#841584',
+        alignItems: 'center',
+        // justifyContent: 'center',
+        elevation: 8,
+        borderRadius: 10,
+        // width:100,
+        margin:10,
+    },
+    
+    buttonText:{
+        color:"white",
+    },
+
+    friendreqContainer:{
+        marginTop: 20,
+        marginBottom:20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection:'row',
+        // flex:1,
+    },
+    friendReqTopicText:{
+        fontSize:20,
+    },
+
+    friendsListContainer:{
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // flexDirection:'row',
+        flex:1,
+        marginLeft:20,
+
+    },
+
+    
+    });
 export default FriendRequests; 
